@@ -21,7 +21,7 @@ Router.get(`/${Modelo}/listado-ventas`, VerificarToken, VerificarPermisos('VerVe
 
 Router.post(`/${Modelo}/crear-venta`, VerificarToken, VerificarPermisos('CrearVenta', Tabla), CrearVenta);
 
-Router.delete(`/${Modelo}/eliminar-venta/:CodigoPedido`, VerificarToken, VerificarPermisos('EliminarVenta', Tabla), EliminarVenta);
+Router.post(`/${Modelo}/eliminar-venta/:CodigoPedido`, VerificarToken, VerificarPermisos('EliminarVenta', Tabla), EliminarVenta);
 
 Router.get(`/${Modelo}/pdf-venta/:CodigoPedido`, VerificarToken, VerificarPermisos('GenerarPDFVenta', Tabla), GenerarPDFVenta);
 

@@ -148,12 +148,13 @@ const EliminarVenta = async (req, res) => {
     try {
 
         const { CodigoPedido } = req.params;
-
+  const { ClaveEliminacion } = req.body;
         const DatosUsuario = req.Datos;
 
         const resultado = await Servicio.EliminarVenta(
             CodigoPedido,
-            DatosUsuario
+            DatosUsuario,
+               ClaveEliminacion
         );
 
         return ResponderExito(

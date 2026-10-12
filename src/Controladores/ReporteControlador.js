@@ -2,9 +2,17 @@
 const Servicio = require('../Servicios/ReporteServicio');
 const ManejarError = require('../Utilidades/ErrorControladores');
 const ResponderExito = require('../Utilidades/RespuestaExitosaControlador');
+const { LanzarError } = require('../Utilidades/ErrorServicios');
 
 const ReporteVentas = async (req, res) => {
     try {
+
+        if (req.Datos.NombreUsuario !== 'JMiza') {
+            LanzarError(
+                'No tiene permiso para ver los reportes',
+                403
+            );
+        }
 
         const { FechaInicio, FechaFin } = req.query;
 
@@ -32,6 +40,12 @@ const ReporteVentas = async (req, res) => {
 const ReporteCostosVentas = async (req, res) => {
     try {
 
+        if (req.Datos.NombreUsuario !== 'JMiza') {
+            LanzarError(
+                'No tiene permiso para ver los reportes',
+                403
+            );
+        }
         const { FechaInicio, FechaFin } = req.query;
 
         const Objeto = await Servicio.ReporteCostosVentas(
@@ -56,6 +70,13 @@ const ReporteCostosVentas = async (req, res) => {
 };
 const ReportePedidos = async (req, res) => {
     try {
+
+        if (req.Datos.NombreUsuario !== 'JMiza') {
+            LanzarError(
+                'No tiene permiso para ver los reportes',
+                403
+            );
+        }
 
         const { FechaInicio, FechaFin } = req.query;
 
@@ -86,6 +107,13 @@ const ReportePedidos = async (req, res) => {
 const ReportePedidosAnexo = async (req, res) => {
     try {
 
+        if (req.Datos.NombreUsuario !== 'JMiza') {
+            LanzarError(
+                'No tiene permiso para ver los reportes',
+                403
+            );
+        }
+
         const { FechaInicio, FechaFin } = req.query;
 
         const CodigoEmpresa = req.Datos.CodigoEmpresa;
@@ -115,6 +143,12 @@ const ReportePedidosAnexo = async (req, res) => {
 const ReporteGanancia = async (req, res) => {
     try {
 
+        if (req.Datos.NombreUsuario !== 'JMiza') {
+            LanzarError(
+                'No tiene permiso para ver los reportes',
+                403
+            );
+        }
         const { FechaInicio, FechaFin } = req.query;
 
         const Objeto = await Servicio.ReporteGanancia(

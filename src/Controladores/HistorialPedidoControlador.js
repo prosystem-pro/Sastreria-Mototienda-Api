@@ -159,6 +159,7 @@ const ActualizarPedido = async (req, res) => {
 const EliminarPedido = async (req, res) => {
   try {
 
+    const { ClaveEliminacion } = req.body;
     const { CodigoPedido } = req.params;
 
     if (!CodigoPedido) {
@@ -170,7 +171,8 @@ const EliminarPedido = async (req, res) => {
     }
 
     const Objeto = await Servicio.EliminarPedido(
-      Number(CodigoPedido)
+      Number(CodigoPedido),
+      ClaveEliminacion
     );
 
     return ResponderExito(

@@ -35,7 +35,7 @@ Router.put(`/${Modelo}/actualizar`, VerificarToken, VerificarPermisos('EditarPed
 Router.post(`/${Modelo}/pagar`, VerificarToken, VerificarPermisos('RegistrarPagoPedido', Tabla), RegistrarPagoPedido);
 Router.get(`/${Modelo}/pagos/:CodigoPedido`, VerificarToken, VerificarPermisos('ListadoPagoPedido', Tabla), ListarPagosPorPedido);
 
-Router.delete(`/${Modelo}/eliminar/:CodigoPedido`, VerificarToken, VerificarPermisos('EliminarPedido', Tabla), EliminarPedido);
+Router.post(`/${Modelo}/eliminar/:CodigoPedido`, VerificarToken, VerificarPermisos('EliminarPedido', Tabla), EliminarPedido);
 
 Router.get(`/${Modelo}/estado-pedido`, VerificarToken, VerificarPermisos('ListadoEstadoPedido', Tabla), ListadoEstadoPedido);
 Router.get(`/${Modelo}/entregados`, VerificarToken, VerificarPermisos('ListadoPedidoEntregado', Tabla), ListadoEntregados);

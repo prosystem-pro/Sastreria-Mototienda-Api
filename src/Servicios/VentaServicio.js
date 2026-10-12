@@ -764,7 +764,7 @@ const GenerarPDFVenta = async (CodigoPedido, res) => {
         doc.font('Helvetica')
             .fontSize(10)
             // .text(`NIT: ${empresa.NIT}`, 40, 70)
-            .text(`Venta de materiales de construcción y más..`, 40, 70)
+            .text(`Venta de accesorios para motocicletas`, 40, 70)
             .text(`Dirección: ${empresa.Direccion}`, 40, 85)
             .text(`Teléfono: ${empresa.Telefono}`, 40, 100);
 
@@ -977,12 +977,20 @@ const GenerarPDFVenta = async (CodigoPedido, res) => {
 
 
 // ELIMINAR VENTA
-const EliminarVenta = async (CodigoPedido, usuario) => {
+const EliminarVenta = async (CodigoPedido, usuario, ClaveEliminacion) => {
 
     let transaction;
 
     try {
 
+        const CLAVE_VALIDA = process.env.CLAVE_ElIMINACION_VENTAS_PEDIDOS;
+
+        if (!ClaveEliminacion) {
+            LanzarError('Debe escribir la clave de eliminación', 400, 'Alerta');
+        }
+        if (ClaveEliminacion !== CLAVE_VALIDA) {
+            LanzarError('Clave incorrecta', 400, 'Alerta');
+        }
         // =============================
         // VALIDACIONES
         // =============================
