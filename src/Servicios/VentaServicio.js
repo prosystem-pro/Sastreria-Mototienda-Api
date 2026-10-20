@@ -935,20 +935,20 @@ const GenerarPDFVenta = async (CodigoPedido, res) => {
 
 
         // ===== DERECHA FILA 2 =====
-        doc.text(
-            `Descuento (${venta.Descuento || 0}%):`,
-            xDerLabel,
-            totalesY
-        );
+        // doc.text(
+        //     `Descuento (${venta.Descuento || 0}%):`,
+        //     xDerLabel,
+        //     totalesY
+        // );
 
-        doc.text(
-            `Q ${(
-                venta.Subtotal * ((venta.Descuento || 0) / 100)
-            ).toFixed(2)}`,
-            xDerMonto,
-            totalesY,
-            { width: anchoMonto, align: 'right' }
-        );
+        // doc.text(
+        //     `Q ${(
+        //         venta.Subtotal * ((venta.Descuento || 0) / 100)
+        //     ).toFixed(2)}`,
+        //     xDerMonto,
+        //     totalesY,
+        //     { width: anchoMonto, align: 'right' }
+        // );
 
 
         totalesY += 15;
