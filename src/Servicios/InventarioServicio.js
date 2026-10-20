@@ -113,7 +113,7 @@ const CrearProductoInventario = async (Datos, CodigoUsuario) => {
         // =========================
         // VALIDACIONES
         // =========================
-        Producto = NormalizarTexto(Producto);
+        Producto = NormalizarTextoNumero(Producto);
 
         if (!Producto)
             LanzarError('Producto es requerido', 400);
@@ -459,6 +459,17 @@ const NormalizarTexto = (texto) => {
         .toLowerCase()
         .replace(/\b\w/g, l => l.toUpperCase()); // Primera mayúscula por palabra
 };
+const NormalizarTextoNumero = (texto) => {
+    return texto
+        .trim()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-zA-Z0-9\s]/g, "")
+        .replace(/\s+/g, " ")
+        .toLowerCase()
+        .replace(/\b\w/g, l => l.toUpperCase());
+};
+
 const NormalizarPrecio = (precio) => {
 
     if (precio === undefined || precio === null)
@@ -1247,7 +1258,7 @@ const ActualizarColor = async (CodigoColor, NombreColor) => {
 };
 
 module.exports = {
-    CrearProductoInventario, ListadoMarca, ListadoEstilo, ListadoTalla,
+    CrearProductoInventario, ListadoMarca, ListadoEstilo, ListadoTalla, NormalizarTextoNumero,
     ListadoColor, ListadoTipoProducto, ObtenerInventarioListado, EliminarInventario,
     ObtenerInventarioEliminados, RestaurarInventario, ObtenerInventarioPorCodigo, ActualizarProductoInventario,
     CrearMarca, CrearEstilo, CrearTalla, CrearColor, ActualizarMarca, ActualizarEstilo, ActualizarTalla, ActualizarColor,
