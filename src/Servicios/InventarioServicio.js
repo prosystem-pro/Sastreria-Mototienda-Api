@@ -109,15 +109,10 @@ const CrearProductoInventario = async (Datos, CodigoUsuario) => {
             CodigoCategoria
         } = Datos;
 
-        // ==============================================
-        // NORMALIZACIÓN
-        // ==============================================
-        Producto = NormalizarTextoNumero(Producto);
-        CodigoBarra = CodigoBarra?.trim().replace(/^0+/, '') || '';
-
         // =========================
         // VALIDACIONES
         // =========================
+        Producto = NormalizarTextoNumero(Producto);
         if (!Producto)
             LanzarError('Producto es requerido', 400);
         if (!CodigoTipoProducto)
@@ -127,18 +122,10 @@ const CrearProductoInventario = async (Datos, CodigoUsuario) => {
         if (!CodigoEstilo)
             LanzarError('Diseño es requerido', 400);
         if (!CodigoTalla)
-            LanzarError('Ubicación es requerida', 400);
-        if (!CodigoColor)
-            LanzarError('Color es requerido', 400);
-        if (!CodigoBarra)
-            LanzarError('Código de barras es requerido', 400);
-        if (!CodigoCategoria)
-            LanzarError('Categoría es requerida', 400);
-
+            LanzarError('Ubicacion es requerida', 400);
         Precio = NormalizarPrecio(Precio);
         PrecioCosto = NormalizarPrecio(PrecioCosto);
         Stock = NormalizarStock(Stock);
-
         if (!CodigoEmpresa)
             LanzarError('Empresa es requerida', 400);
         if (!CodigoUsuario)
@@ -169,7 +156,7 @@ const CrearProductoInventario = async (Datos, CodigoUsuario) => {
             }, { transaction: Transaccion });
         } else {
             await ProductoDB.update({
-                NombreProducto: Producto,       // ✅ AGREGADO: guarda el nombre
+                NombreProducto: Producto, // ✅ Guarda el nombre actualizado
                 CodigoTipoProducto,
                 CodigoCategoria,
                 PrecioBase: Precio
@@ -190,7 +177,6 @@ const CrearProductoInventario = async (Datos, CodigoUsuario) => {
             },
             transaction: Transaccion
         });
-
         if (ExisteInventario) {
             if ([1, 2].includes(ExisteInventario.Estatus)) {
                 LanzarError('Este producto ya existe', 400);
@@ -239,6 +225,9 @@ const CrearProductoInventario = async (Datos, CodigoUsuario) => {
             FechaMovimiento: new Date()
         }, { transaction: Transaccion });
 
+        // =========================
+        // 6. COMMIT
+        // =========================
         await Transaccion.commit();
         return InventarioDB;
     } catch (error) {
@@ -270,15 +259,10 @@ const ActualizarProductoInventario = async (CodigoInventario, Datos, CodigoUsuar
             Estatus
         } = Datos;
 
-        // ==============================================
-        // NORMALIZACIÓN
-        // ==============================================
-        Producto = NormalizarTextoNumero(Producto);
-        CodigoBarra = CodigoBarra?.trim().replace(/^0+/, '') || '';
-
         // =========================
         // VALIDACIONES
         // =========================
+        Producto = NormalizarTextoNumero(Producto);
         if (!CodigoInventario)
             LanzarError('Código de inventario es requerido', 400);
         if (!Producto)
@@ -291,17 +275,9 @@ const ActualizarProductoInventario = async (CodigoInventario, Datos, CodigoUsuar
             LanzarError('Diseño es requerido', 400);
         if (!CodigoTalla)
             LanzarError('Talla es requerida', 400);
-        if (!CodigoColor)
-            LanzarError('Color es requerido', 400);
-        if (!CodigoBarra)
-            LanzarError('Código de barras es requerido', 400);
-        if (!CodigoCategoria)
-            LanzarError('Categoría es requerida', 400);
-
         Precio = NormalizarPrecio(Precio);
         PrecioCosto = NormalizarPrecio(PrecioCosto);
         Stock = NormalizarStock(Stock);
-
         if (!CodigoEmpresa)
             LanzarError('Empresa es requerida', 400);
         if (!CodigoUsuario)
@@ -334,7 +310,7 @@ const ActualizarProductoInventario = async (CodigoInventario, Datos, CodigoUsuar
             }, { transaction: Transaccion });
         } else {
             await ProductoDB.update({
-                NombreProducto: Producto,       // ✅ AGREGADO: guarda el nombre
+                NombreProducto: Producto, // ✅ Guarda el nombre actualizado
                 CodigoTipoProducto,
                 CodigoCategoria,
                 PrecioBase: Precio,
@@ -410,6 +386,9 @@ const ActualizarProductoInventario = async (CodigoInventario, Datos, CodigoUsuar
             }, { transaction: Transaccion });
         }
 
+        // =========================
+        // 7. COMMIT
+        // =========================
         await Transaccion.commit();
         return InventarioDB;
     } catch (error) {
@@ -417,7 +396,6 @@ const ActualizarProductoInventario = async (CodigoInventario, Datos, CodigoUsuar
         throw error;
     }
 };
-
 const NormalizarTexto = (texto) => {
     return texto
         .trim() // quita espacios extremos
